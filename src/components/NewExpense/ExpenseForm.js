@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./ExpenseForm.css";
 
-function ExpenseForm() {
+function ExpenseForm(props) {
   const [enteredTitle, setEnteredTitle] = useState("");
   const [enteredAmount, setEnteredAmount] = useState("");
   const [enteredDate, setEnteredDate] = useState("");
@@ -22,7 +22,10 @@ function ExpenseForm() {
       amount: enteredAmount,
       date: new Date(enteredDate),
     };
-    console.log(expenseDate);
+
+    // this is how data is passed form child to parent
+    // check NewExpense.js file
+    props.onSaveExpenseData(expenseDate);
     setEnteredTitle("");
     setEnteredAmount("");
     setEnteredDate("");
@@ -37,11 +40,13 @@ function ExpenseForm() {
             type="text"
             onChange={titleChangeHandler}
             value={enteredTitle}
+            // value is used for two way binding so when state
+            // changes input also changes
           ></input>
         </div>
 
         <div className="new-expense__control">
-          <label>amount</label>
+          <label>Amount</label>
           <input
             type="number"
             min="0.01"
